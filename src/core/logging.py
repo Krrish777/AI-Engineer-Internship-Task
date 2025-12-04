@@ -14,23 +14,21 @@ class CustomLogger:
         
     def get_logger(self):
         if not self._configured:
-            # Create file handler
+            # Clear any existing handlers to avoid duplicates
+            root_logger = logging.getLogger()
+            for handler in root_logger.handlers[:]:
+                root_logger.removeHandler(handler)
+            
+            # Create file handler for JSON logs
             file_handler = logging.FileHandler(self.log_file_path)
             file_handler.setLevel(logging.INFO)
-            file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
             
-            # Create console handler  
+            # Create console handler for simple logs
             console_handler = logging.StreamHandler()
             console_handler.setLevel(logging.INFO)
             console_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
             
-            # Configure root logger
-            root_logger = logging.getLogger()
-            root_logger.setLevel(logging.INFO)
-            root_logger.addHandler(file_handler)
-            root_logger.addHandler(console_handler)
-            
-            # Configure structlog
+            # Configure structlog for JSON file output only
             structlog.configure(
                 processors=[
                     structlog.processors.TimeStamper(fmt="iso", utc=True, key="timestamp"),
@@ -39,9 +37,42 @@ class CustomLogger:
                     structlog.processors.JSONRenderer()
                 ],
                 logger_factory=structlog.stdlib.LoggerFactory(),
+                wrapper_class=structlog.stdlib.BoundLogger,
                 cache_logger_on_first_use=True,
             )
             
+            # Add only file handler to structlog's logger
+            structlog_logger = logging.getLogger()
+            structlog_logger.setLevel(logging.INFO)
+            structlog_logger.addHandler(file_handler)
+            
+            # Add only console handler to a separate logger for console output
+            console_logger = logging.getLogger('console')
+            console_logger.setLevel(logging.INFO) 
+            console_logger.addHandler(console_handler)
+            
             self._configured = True
             
-        return structlog.get_logger()
+        # Return a custom logger that writes to both console and file differently
+        return ConsoleFileLogger()
+    
+class ConsoleFileLogger:
+    def __init__(self):
+        self.struct_logger = structlog.get_logger()
+        self.console_logger = logging.getLogger('console')
+    
+    def info(self, message, **kwargs):
+        self.console_logger.info(message)
+        self.struct_logger.info(message, **kwargs)
+    
+    def warning(self, message, **kwargs):
+        self.console_logger.warning(message)
+        self.struct_logger.warning(message, **kwargs)
+        
+    def error(self, message, **kwargs):
+        self.console_logger.error(message)
+        self.struct_logger.error(message, **kwargs)
+    
+    def debug(self, message, **kwargs):
+        self.console_logger.debug(message)
+        self.struct_logger.debug(message, **kwargs)
