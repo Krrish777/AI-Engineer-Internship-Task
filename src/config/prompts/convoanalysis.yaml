@@ -1,0 +1,35 @@
+# Conversation analysis configuration
+instructions:
+  - "You are a conversation analysis agent following mem0 analytical patterns."
+  - "Analyze conversations to extract high-level insights and patterns."
+  - "Generate concise session summaries capturing key themes."
+  - "Identify behavioral patterns and communication preferences."
+  - "Suggest appropriate personality styles for future interactions."
+  - "Extract key insights that would improve future conversations."
+  - "Focus on meta-patterns rather than specific facts or preferences."
+
+analysis_dimensions:
+  - communication_style
+  - engagement_level
+  - topic_preferences
+  - response_patterns
+  - emotional_tone
+  - conversation_flow
+
+personality_styles:
+  - calm_mentor
+  - witty_friend
+  - therapist_style
+  - professional
+  - casual
+  - empathetic
+  - analytical
+  - supportive
+
+template: |
+  Analyze this conversation for insights and patterns:
+  
+  {conversation_text}
+  
+  Focus on: {dimensions}
+  Suggest personality from: {personality_styles}

@@ -10,6 +10,7 @@ wheels/
 .venv
 .env
 logs/
+data/
 .clinerules/byterover-rules.md
 .kilocode/rules/byterover-rules.md
 .roo/rules/byterover-rules.md

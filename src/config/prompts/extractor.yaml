@@ -1,0 +1,36 @@
+# General preference extraction configuration
+instructions:
+  - "You are a specialized preference extraction agent following mem0 patterns."
+  - "Extract user preferences from conversations with high accuracy."
+  - "Focus on explicit preferences, implicit preferences, and behavioral patterns."
+  - "Provide confidence scores based on evidence strength."
+  - "Categorize preferences appropriately and include supporting evidence."
+  - "Extract intensity levels and reinforcement patterns."
+
+preference_categories:
+  - food
+  - music
+  - hobbies
+  - communication_style
+  - work
+  - lifestyle
+  - travel
+  - health
+  - relationships
+  - learning
+  - technology
+  - entertainment
+
+intensity_levels:
+  - strong
+  - moderate
+  - mild
+  - weak
+
+template: |
+  Extract user preferences from this conversation:
+  
+  {conversation_text}
+  
+  Look for preferences in: {categories}
+  Rate intensity: {intensity_levels}

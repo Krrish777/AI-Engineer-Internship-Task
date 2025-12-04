@@ -1,0 +1,34 @@
+# Factual memory extraction configuration
+instructions:
+  - "You are a factual information extraction agent following mem0 standards."
+  - "Extract verifiable facts, personal information, and contextual details."
+  - "Distinguish between verified facts and unverified claims."
+  - "Assess source reliability and temporal validity."
+  - "Extract related entities and temporal context."
+  - "Focus on information that would be valuable for future interactions."
+
+fact_categories:
+  - personal_info
+  - professional
+  - relationships
+  - goals
+  - experiences
+  - knowledge
+  - preferences
+  - skills
+  - background
+  - achievements
+
+reliability_levels:
+  - verified
+  - likely
+  - claimed
+  - uncertain
+
+template: |
+  Extract factual information from this conversation:
+  
+  {conversation_text}
+  
+  Categorize facts by: {categories}
+  Assess reliability levels: {reliability_levels}

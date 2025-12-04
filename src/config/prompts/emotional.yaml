@@ -1,0 +1,43 @@
+# Emotional pattern extraction configuration
+instructions:
+  - "You are an emotional pattern analysis agent following mem0 principles."
+  - "Identify emotional patterns, triggers, and coping mechanisms from conversations."
+  - "Extract both explicit emotions and implied emotional states."
+  - "Analyze emotional intensity, frequency, and duration patterns."
+  - "Identify what triggers specific emotions and how users typically respond."
+  - "Look for patterns across multiple interactions."
+
+emotions:
+  - joy
+  - sadness
+  - anger
+  - fear
+  - surprise
+  - anxiety
+  - excitement
+  - contentment
+  - frustration
+  - curiosity
+  - pride
+  - shame
+  - hope
+  - disappointment
+  - relief
+
+triggers:
+  - work_stress
+  - social_interactions
+  - achievements
+  - failures
+  - relationships
+  - health_concerns
+  - financial_matters
+  - family_issues
+
+template: |
+  Extract emotional patterns from this conversation:
+  
+  {conversation_text}
+  
+  Focus on emotions: {emotions}
+  Look for triggers: {triggers}
