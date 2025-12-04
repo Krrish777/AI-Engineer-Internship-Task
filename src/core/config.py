@@ -1,7 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
-import os
-from ..utils.config_loader import load_app_config, get_api_config, get_model_config, get_database_config
+from ..utils.config_loader import load_app_config
 
 # Load YAML configuration
 _yaml_config = load_app_config()

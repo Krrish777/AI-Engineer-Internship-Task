@@ -5,7 +5,7 @@ for all memory extraction agents following mem0 patterns.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Optional, Any, Union, Type
+from typing import List, Dict, Optional, Any, Type
 from datetime import datetime
 from src.core.logging import CustomLogger
 from agno.agent import Agent
