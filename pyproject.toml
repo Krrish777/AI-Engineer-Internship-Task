@@ -15,4 +15,5 @@ dependencies = [
     "ruff>=0.14.7",
     "sentence-transformers>=5.1.2",
     "sqlalchemy>=2.0.44",
+    "structlog>=24.4.0",
 ]
