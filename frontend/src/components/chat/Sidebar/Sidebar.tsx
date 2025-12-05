@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Icon from '@/components/ui/icon'
 import Sessions from './Sessions'
-import AuthToken from './AuthToken'
 
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
@@ -33,13 +32,7 @@ const NewChatButton = ({
   </Button>
 )
 
-const Sidebar = ({
-  hasEnvToken,
-  envToken
-}: {
-  hasEnvToken?: boolean
-  envToken?: string
-}) => {
+const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const { clearChat, focusChatInput, initialize } = useChatActions()
   const {
@@ -96,12 +89,7 @@ const Sidebar = ({
           disabled={messages.length === 0}
           onClick={handleNewChat}
         />
-        {isMounted && (
-          <>
-            <AuthToken hasEnvToken={hasEnvToken} envToken={envToken} />
-            {isEndpointActive && !isEndpointLoading && <Sessions />}
-          </>
-        )}
+        {isMounted && isEndpointActive && !isEndpointLoading && <Sessions />}
       </motion.div>
     </motion.aside>
   )
