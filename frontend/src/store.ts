@@ -8,9 +8,15 @@ import {
   type ChatMessage
 } from '@/types/os'
 
+// Generate a unique user ID for memory isolation
+const generateUserId = (): string => {
+  return 'user_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36)
+}
+
 interface Store {
   hydrated: boolean
   setHydrated: () => void
+  userId: string  // Auto-generated unique user ID for memory isolation
   streamingErrorMessage: string
   setStreamingErrorMessage: (streamingErrorMessage: string) => void
   endpoints: {
@@ -61,6 +67,7 @@ export const useStore = create<Store>()(
     (set) => ({
       hydrated: false,
       setHydrated: () => set({ hydrated: true }),
+      userId: generateUserId(),  // Auto-generate unique user ID
       streamingErrorMessage: '',
       setStreamingErrorMessage: (streamingErrorMessage) =>
         set(() => ({ streamingErrorMessage })),
@@ -110,7 +117,8 @@ export const useStore = create<Store>()(
       name: 'endpoint-storage',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        selectedEndpoint: state.selectedEndpoint
+        selectedEndpoint: state.selectedEndpoint,
+        userId: state.userId  // Persist userId so each browser keeps the same ID
       }),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated?.()

@@ -19,6 +19,7 @@ const useAIChatStreamHandler = () => {
   const [sessionId, setSessionId] = useQueryState('session')
   const selectedEndpoint = useStore((state) => state.selectedEndpoint)
   const authToken = useStore((state) => state.authToken)
+  const userId = useStore((state) => state.userId)  // Auto-generated user ID
   const mode = useStore((state) => state.mode)
   const setStreamingErrorMessage = useStore(
     (state) => state.setStreamingErrorMessage
@@ -163,10 +164,8 @@ const useAIChatStreamHandler = () => {
         formData.append('stream', 'true')
         formData.append('session_id', sessionId ?? '')
         
-        // Use auth token as user_id for memory isolation per user
-        if (authToken) {
-          formData.append('user_id', authToken)
-        }
+        // Use auto-generated userId for memory isolation (each browser gets unique ID)
+        formData.append('user_id', userId)
 
         // Create headers with auth token if available
         const headers: Record<string, string> = {}
@@ -438,6 +437,7 @@ const useAIChatStreamHandler = () => {
       updateMessagesWithErrorState,
       selectedEndpoint,
       authToken,
+      userId,
       streamResponse,
       agentId,
       teamId,

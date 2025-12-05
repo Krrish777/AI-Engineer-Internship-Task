@@ -55,7 +55,8 @@ export const getAllSessionsAPI = async (
   type: 'agent' | 'team',
   componentId: string,
   dbId: string,
-  authToken?: string
+  authToken?: string,
+  userId?: string
 ): Promise<Sessions | { data: [] }> => {
   try {
     const url = new URL(APIRoutes.GetSessions(base))
@@ -63,9 +64,9 @@ export const getAllSessionsAPI = async (
     url.searchParams.set('component_id', componentId)
     url.searchParams.set('db_id', dbId)
     
-    // Filter sessions by user_id (using authToken as user identifier)
-    if (authToken) {
-      url.searchParams.set('user_id', authToken)
+    // Filter sessions by user_id for memory isolation
+    if (userId) {
+      url.searchParams.set('user_id', userId)
     }
 
     const response = await fetch(url.toString(), {

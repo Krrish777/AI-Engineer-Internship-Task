@@ -28,6 +28,7 @@ const useSessionLoader = () => {
   const setMessages = useStore((state) => state.setMessages)
   const selectedEndpoint = useStore((state) => state.selectedEndpoint)
   const authToken = useStore((state) => state.authToken)
+  const userId = useStore((state) => state.userId)  // Auto-generated user ID
   const setIsSessionsLoading = useStore((state) => state.setIsSessionsLoading)
   const setSessionsData = useStore((state) => state.setSessionsData)
 
@@ -44,7 +45,8 @@ const useSessionLoader = () => {
           entityType,
           selectedId,
           dbId,
-          authToken
+          authToken,
+          userId  // Pass userId for session filtering
         )
         setSessionsData(sessions.data ?? [])
       } catch {
@@ -54,7 +56,7 @@ const useSessionLoader = () => {
         setIsSessionsLoading(false)
       }
     },
-    [selectedEndpoint, authToken, setSessionsData, setIsSessionsLoading]
+    [selectedEndpoint, authToken, userId, setSessionsData, setIsSessionsLoading]
   )
 
   const getSession = useCallback(
