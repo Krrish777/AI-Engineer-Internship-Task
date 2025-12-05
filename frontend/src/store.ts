@@ -81,7 +81,9 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      selectedEndpoint: 'https://ai-engineer-internship-task.onrender.com',
+      selectedEndpoint: process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:8000' 
+        : 'https://ai-engineer-internship-task.onrender.com',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       authToken: '',
