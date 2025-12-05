@@ -162,6 +162,11 @@ const useAIChatStreamHandler = () => {
 
         formData.append('stream', 'true')
         formData.append('session_id', sessionId ?? '')
+        
+        // Use auth token as user_id for memory isolation per user
+        if (authToken) {
+          formData.append('user_id', authToken)
+        }
 
         // Create headers with auth token if available
         const headers: Record<string, string> = {}

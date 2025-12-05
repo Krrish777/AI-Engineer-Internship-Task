@@ -62,6 +62,11 @@ export const getAllSessionsAPI = async (
     url.searchParams.set('type', type)
     url.searchParams.set('component_id', componentId)
     url.searchParams.set('db_id', dbId)
+    
+    // Filter sessions by user_id (using authToken as user identifier)
+    if (authToken) {
+      url.searchParams.set('user_id', authToken)
+    }
 
     const response = await fetch(url.toString(), {
       method: 'GET',
