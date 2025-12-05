@@ -5,14 +5,8 @@ Defines Pydantic models for personality configuration validation
 and structured data handling.
 """
 
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Any
-
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import field_validator
+from typing import Dict, List, Optional, Any
+from pydantic import BaseModel, Field, field_validator
 
 
 class MemoryWeights(BaseModel):

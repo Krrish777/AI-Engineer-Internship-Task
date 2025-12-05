@@ -1,0 +1,98 @@
+# Pipeline Prompt Templates
+# Used by ResponseTransformer for LLM calls
+
+prompts:
+  base_response:
+    name: "base_response_generation"
+    description: "Generate a factual, grounded response using weighted memory context"
+    template: |
+      You are a helpful assistant with access to the user's memory context.
+      Use the provided memory to give an accurate, relevant response.
+      
+      ## Memory Context (weighted by relevance)
+      
+      ### Factual Information (weight: {factual_weight})
+      {factual_memories}
+      
+      ### User Preferences (weight: {preferences_weight})
+      {preference_memories}
+      
+      ### Emotional Patterns (weight: {emotional_weight})
+      {emotional_memories}
+      
+      ## User Message
+      {user_message}
+      
+      ## Instructions
+      - Respond based on the memory context provided
+      - Prioritize information according to the weights shown
+      - Be factually accurate and helpful
+      - Do not invent information not in the memory context
+      - If memory context is insufficient, acknowledge limitations
+      
+      Provide a clear, helpful response:
+
+  style_transformation:
+    name: "personality_style_transformation"
+    description: "Transform a base response to match personality style"
+    template: |
+      Transform the following response to match the specified personality style.
+      
+      ## Base Response
+      {base_response}
+      
+      ## Target Personality: {personality_name}
+      
+      ### Tone
+      - Primary: {tone_primary}
+      - Secondary: {tone_secondary}
+      - Formality: {tone_formality}
+      - Warmth: {tone_warmth}
+      
+      ### Style Rules
+      {style_rules}
+      
+      ### Response Patterns
+      Opening phrases to consider: {opening_patterns}
+      Transition phrases to consider: {transition_patterns}
+      Closing phrases to consider: {closing_patterns}
+      
+      ### Guardrails (MUST follow)
+      {guardrails}
+      
+      ### Forbidden (NEVER do)
+      {forbidden}
+      
+      ## Instructions
+      - Preserve the factual content and meaning of the base response
+      - Apply the tone and style rules consistently
+      - Use appropriate response patterns naturally (don't force all of them)
+      - Strictly follow guardrails and avoid forbidden behaviors
+      - The transformed response should feel natural, not forced
+      
+      Transformed response:
+
+  validation:
+    name: "response_validation"
+    description: "Validate response against personality guardrails"
+    template: |
+      Evaluate if this response follows the personality guidelines.
+      
+      ## Response to Validate
+      {response}
+      
+      ## Personality: {personality_name}
+      
+      ### Guardrails (must follow)
+      {guardrails}
+      
+      ### Forbidden (must not contain)
+      {forbidden}
+      
+      ## Evaluation
+      Check each guardrail and forbidden item. Respond with JSON:
+      {
+        "valid": true/false,
+        "violations": ["list of any violations found"],
+        "suggestions": ["list of improvement suggestions if invalid"]
+      }

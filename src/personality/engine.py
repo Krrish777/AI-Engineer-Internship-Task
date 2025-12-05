@@ -140,6 +140,15 @@ class PersonalityEngine:
         """Get the name of the currently active personality."""
         return self._active_personality_name
     
+    def get_active_weights(self) -> MemoryWeights:
+        """
+        Get the memory weights for the active personality.
+        
+        Returns:
+            MemoryWeights with factual, preferences, emotional_patterns weights
+        """
+        return self.active_personality.memory_weights
+    
     def get_available_personalities(self) -> List[str]:
         """Get list of available personality names."""
         return list(self._personalities.keys())
