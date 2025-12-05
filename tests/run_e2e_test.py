@@ -149,7 +149,7 @@ async def demonstrate_personality_differences(
     """
     print_section("PHASE 2: PERSONALITY RESPONSE DIFFERENCES")
     print(f"\nTest Message: \"{test_message}\"")
-    print(f"\nMemory Context Summary:")
+    print("\nMemory Context Summary:")
     print(f"  - Factual items: {len(memory_context.get('factual', {}))}")
     print(f"  - Preference items: {len(memory_context.get('preferences', {}))}")
     print(f"  - Emotional patterns: {len(memory_context.get('emotional_patterns', {}))}")
@@ -176,14 +176,14 @@ async def demonstrate_personality_differences(
         engine = transformer._personality_engine
         weights = engine.get_active_weights()
         
-        print(f"\nMemory Weights Applied:")
+        print("\nMemory Weights Applied:")
         print(f"  - Factual: {weights.factual}")
         print(f"  - Preferences: {weights.preferences}")
         print(f"  - Emotional: {weights.emotional_patterns}")
         
         # Get style context
         style = engine.get_style_context()
-        print(f"\nStyle Profile:")
+        print("\nStyle Profile:")
         print(f"  - Tone: {style['tone']['primary']} / {style['tone']['secondary']}")
         print(f"  - Formality: {style['tone']['formality']}")
         
@@ -195,7 +195,7 @@ async def demonstrate_personality_differences(
                 personality_name=personality
             )
             
-            print(f"\nBase Response:")
+            print("\nBase Response:")
             print(f"  {result.base_response[:200]}..." if len(result.base_response) > 200 else f"  {result.base_response}")
             
             print(f"\nStyled Response ({personality}):")
@@ -250,7 +250,7 @@ async def run_quick_personality_demo(memory_context: dict) -> dict:
     test_message = "I'm feeling anxious about learning Python. Can you help?"
     
     print(f"\nTest Message: \"{test_message}\"")
-    print(f"\nInput Memory Context:")
+    print("\nInput Memory Context:")
     print(f"  - {len(memory_context.get('factual', {}))} factual items")
     print(f"  - {len(memory_context.get('preferences', {}))} preference items")
     print(f"  - {len(memory_context.get('emotional_patterns', {}))} emotional items")
@@ -290,9 +290,9 @@ async def run_quick_personality_demo(memory_context: dict) -> dict:
         
         # Show what gets prioritized
         if weights.factual >= weights.emotional_patterns:
-            print(f"  → Prioritizes: FACTUAL information (facts about user)")
+            print("  → Prioritizes: FACTUAL information (facts about user)")
         else:
-            print(f"  → Prioritizes: EMOTIONAL context (user's feelings)")
+            print("  → Prioritizes: EMOTIONAL context (user's feelings)")
     
     return demo_results
 
