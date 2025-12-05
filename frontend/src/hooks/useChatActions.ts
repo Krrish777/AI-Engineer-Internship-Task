@@ -19,8 +19,8 @@ const useChatActions = () => {
   const setTeams = useStore((state) => state.setTeams)
   const setSelectedModel = useStore((state) => state.setSelectedModel)
   const setMode = useStore((state) => state.setMode)
-  const [agentId, setAgentId] = useQueryState('agent')
-  const [teamId, setTeamId] = useQueryState('team')
+  const [, setAgentId] = useQueryState('agent')
+  const [, setTeamId] = useQueryState('team')
   const [, setDbId] = useQueryState('db_id')
 
   const getStatus = useCallback(async () => {

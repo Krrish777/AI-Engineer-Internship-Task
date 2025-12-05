@@ -7,8 +7,6 @@ import { useState, useEffect } from 'react'
 import Icon from '@/components/ui/icon'
 import Sessions from './Sessions'
 import AuthToken from './AuthToken'
-import { useQueryState } from 'nuqs'
-import { Skeleton } from '@/components/ui/skeleton'
 
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
