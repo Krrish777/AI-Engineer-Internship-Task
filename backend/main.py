@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 from agno.agent import Agent
 from agno.models.google import Gemini
@@ -315,6 +316,15 @@ def setup_agentos() -> AgentOS:
 
 agent_os = setup_agentos()
 app = agent_os.get_app()
+
+# Add CORS middleware to allow frontend connections
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 if __name__ == "__main__":
     logger.info("Starting Memory Personality Engine via AgentOS")
