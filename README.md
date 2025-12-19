@@ -134,8 +134,10 @@ cd AI-Engineer-Internship-Task
 ```bash
 cd backend
 
-# Create .env file with your Gemini API key
-echo "GOOGLE_API_KEY=your_gemini_api_key_here" > .env
+# Copy the example env file and add your API key
+cp .env.example .env
+
+# Edit .env and replace 'your_google_api_key_here' with your actual Gemini API key
 
 # Install dependencies
 uv sync
